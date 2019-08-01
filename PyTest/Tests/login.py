@@ -1,6 +1,7 @@
 from selenium import webdriver
 import unittest
 from PyTest.Pages.loginPage import LoginPage
+from PyTest.Pages.homePage import HomePage
 
 
 class LoginTest(unittest.TestCase):
@@ -11,7 +12,7 @@ class LoginTest(unittest.TestCase):
         cls.driver.implicitly_wait(10)
         cls.driver.maximize_window()
 
-    def valid_login_test(self):
+    def test_valid_login(self):
         driver = self.driver
 
         driver.get("https://stportal.victorops.com/membership/#/")
@@ -25,9 +26,9 @@ class LoginTest(unittest.TestCase):
     def tearDownClass(cls):
         cls.driver.close()
         cls.driver.quit()
-        cls.Print("The test ran successsfully.")
+        print("Successfully completed test")
 
-# if __name__ == '__main__':
-#     unittest.main()
+if __name__ == '__main__':
+    unittest.main()
 
 
