@@ -1,7 +1,8 @@
 from selenium import webdriver
 import unittest
 from PyTest.Pages.loginPage import LoginPage
-from PyTest.Pages.homePage import HomePage
+
+
 class LoginTest(unittest.TestCase):
 
     @classmethod
@@ -24,8 +25,9 @@ class LoginTest(unittest.TestCase):
     def tearDownClass(cls):
         cls.driver.close()
         cls.driver.quit()
+        cls.Print("The test ran successsfully.")
 
-if __name__ == '__main__':
-    unittest.main()
+# if __name__ == '__main__':
+#     unittest.main()
 
 
