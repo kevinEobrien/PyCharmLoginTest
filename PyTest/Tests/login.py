@@ -14,13 +14,21 @@ class LoginTest(unittest.TestCase):
 
     def test_valid_login(self):
         driver = self.driver
-
-        driver.get("https://stportal.victorops.com/membership/#/")
+        home_url= "https://stportal.victorops.com/membership/#/"
+        driver.get(home_url)
 
         login = LoginPage(driver)
         login.enter_username("keobrien")
-        login.enter_password("P@ssw0rd2")
+        login.enter_password("P@ssw0rd22")
         login.click_sign_in()
+
+        homepage = HomePage(driver)
+        while driver.current_url == home_url:
+            driver.implicitly_wait(1)
+            if driver.current_url != home_url:
+                break
+        self.assertEqual(homepage.user_specific_url, driver.current_url)
+        self.assertEqual(homepage.user_button_is_displayed(), True)
 
     @classmethod
     def tearDownClass(cls):
