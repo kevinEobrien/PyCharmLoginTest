@@ -18,6 +18,7 @@ class HomePage():
             result = False
 
         return result
+
     def wait_for_homepage_to_load (self):
         while self.driver.current_url == self.home_url:
             self.driver.implicitly_wait(1)
