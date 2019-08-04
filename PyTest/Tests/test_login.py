@@ -5,12 +5,17 @@ from selenium.webdriver import Chrome
 import pytest
 from PyTest.Pages.loginPage import LoginPage
 from PyTest.Pages.homePage import HomePage
+from PyTest.environ_vars import EnvironmentVariables
 import pytest_html
 
 
 @pytest.fixture()
 def environment_setup():
-    username = "VICTOROPS_USERNAME"
+    env_variables = EnvironmentVariables()
+    global victorops_username
+    victorops_username = env_variables.vicotops_username
+    global victorops_password
+    victorops_password = env_variables.vicotops_password
     global driver
     path = "/usr/local/bin/chromedriver"
     driver = Chrome(executable_path=path)
@@ -22,11 +27,12 @@ def environment_setup():
     print("Successfully completed test")
 
 def test_valid_login(environment_setup):
+    print(os.environ)
     home_url = "https://stportal.victorops.com/membership/#/"
     driver.get(home_url)
     login = LoginPage(driver)
-    login.enter_username("keobrien")
-    login.enter_password("P@ssw0rd1000")
+    login.enter_username(victorops_username)
+    login.enter_password(victorops_password)
     login.click_sign_in()
     homepage = HomePage(driver)
     homepage.wait_for_homepage_to_load()
