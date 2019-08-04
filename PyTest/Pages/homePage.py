@@ -10,6 +10,7 @@ class HomePage():
         self.user_button_xpath = "//button[contains (. ," + env_variables.victorops_username + ")]"
         self.user_specific_url = env_variables.baseurl + "client/" + self.username_domain
         self.home_url = env_variables.baseurl + "membership/#/"
+        self.homepage_title = "Timeline - " + self.username_domain.upper()
 
     def user_button_is_displayed(self):
         user_button = self.driver.find_element(By.XPATH, self.user_button_xpath)
@@ -25,5 +26,3 @@ class HomePage():
             self.driver.implicitly_wait(1)
             if self.driver.current_url != self.home_url:
                 break
-
-

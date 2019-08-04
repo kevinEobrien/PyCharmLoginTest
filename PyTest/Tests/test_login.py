@@ -40,6 +40,7 @@ def test_valid_login(environment_setup):
     homepage.wait_for_homepage_to_load()
     assert homepage.user_specific_url == driver.current_url
     assert homepage.user_button_is_displayed() == True
+    assert homepage.homepage_title == driver.title
 
 if __name__ == '__main__':
     pytest.main(pytest_html)
