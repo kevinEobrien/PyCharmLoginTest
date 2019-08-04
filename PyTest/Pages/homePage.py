@@ -8,6 +8,7 @@ class HomePage():
 
         self.user_specific_url = "https://stportal.victorops.com/client/sdet"
         self.user_button_xpath = "//button[contains (. ,'keobrien')]"
+        self.home_url="https://stportal.victorops.com/membership/#/"
 
     def user_button_is_displayed(self):
         user_button = self.driver.find_element(By.XPATH, self.user_button_xpath)
@@ -17,6 +18,10 @@ class HomePage():
             result = False
 
         return result
-
+    def wait_for_homepage_to_load (self):
+        while self.driver.current_url == self.home_url:
+            self.driver.implicitly_wait(1)
+            if self.driver.current_url != self.home_url:
+                break
 
 
