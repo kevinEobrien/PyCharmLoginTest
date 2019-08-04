@@ -1,20 +1,21 @@
 from selenium.webdriver.common.by import By
-
+from PyTest.environ_vars import EnvironmentVariables
 
 class HomePage():
 
     def __init__(self, driver):
         self.driver = driver
-
-        self.user_specific_url = "https://stportal.victorops.com/client/sdet"
-        self.user_button_xpath = "//button[contains (. ,'keobrien')]"
-        self.home_url="https://stportal.victorops.com/membership/#/"
+        env_variables = EnvironmentVariables()
+        self.username_domain = env_variables.vicortops_user_domain
+        self.user_button_xpath = "//button[contains (. ," + env_variables.victorops_username + ")]"
+        self.user_specific_url = env_variables.baseurl + "client/" + self.username_domain
+        self.home_url = env_variables.baseurl + "membership/#/"
 
     def user_button_is_displayed(self):
         user_button = self.driver.find_element(By.XPATH, self.user_button_xpath)
         if user_button.is_displayed():
             result = True
-        else :
+        else:
             result = False
 
         return result

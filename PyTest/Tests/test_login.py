@@ -13,9 +13,11 @@ import pytest_html
 def environment_setup():
     env_variables = EnvironmentVariables()
     global victorops_username
-    victorops_username = env_variables.vicotops_username
+    victorops_username = env_variables.victorops_username
     global victorops_password
-    victorops_password = env_variables.vicotops_password
+    victorops_password = env_variables.victorops_password
+    global baseurl
+    baseurl= env_variables.baseurl
     global driver
     path = "/usr/local/bin/chromedriver"
     driver = Chrome(executable_path=path)
@@ -28,7 +30,7 @@ def environment_setup():
 
 def test_valid_login(environment_setup):
     print(os.environ)
-    home_url = "https://stportal.victorops.com/membership/#/"
+    home_url = baseurl + "membership/#/"
     driver.get(home_url)
     login = LoginPage(driver)
     login.enter_username(victorops_username)
@@ -37,7 +39,7 @@ def test_valid_login(environment_setup):
     homepage = HomePage(driver)
     homepage.wait_for_homepage_to_load()
     assert homepage.user_specific_url == driver.current_url
-    assert homepage.user_button_is_displayed()
+    assert homepage.user_button_is_displayed() == True
 
 if __name__ == '__main__':
     pytest.main(pytest_html)
